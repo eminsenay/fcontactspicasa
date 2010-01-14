@@ -14,7 +14,7 @@ public class Main
 		try 
 		{
 			ArrayList<PicasaContact> existingContacts = xmlReader.Read();
-			ArrayList<PicasaContact> allContacts = UnionContacts(friends, existingContacts);
+			ArrayList<PicasaContact> allContacts = MergeContacts(friends, existingContacts);
 			xmlWriter.CreatePicasaUserXml(allContacts);
 		}
 		catch (Exception e) 
@@ -24,7 +24,12 @@ public class Main
 		
 	}
 
-	private static ArrayList<PicasaContact> UnionContacts(
+	/** Merges given two Picasa Contact Lists.
+	 *  Second parameter is used as a basis. Each PicasaContact of
+	 *  first parameter is compared with the ones in second parameter wrt 
+	 *  Name and added if not found.
+	 * */
+	private static ArrayList<PicasaContact> MergeContacts(
 			ArrayList<PicasaContact> friends,
 			ArrayList<PicasaContact> existingContacts) 
 	{
