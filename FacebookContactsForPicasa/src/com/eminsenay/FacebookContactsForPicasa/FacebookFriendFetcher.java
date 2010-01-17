@@ -1,5 +1,8 @@
 package com.eminsenay.FacebookContactsForPicasa;
+import java.awt.Desktop;
+import java.awt.Desktop.Action;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -16,12 +19,13 @@ import com.google.code.facebookapi.schema.UsersGetInfoResponse;
  * 
  * @author Emin Senay
  * Modified from FacebookClient of Mitch Coopet, Code 42 Software, Inc.
- * The original code can be found at: http://straylink.wordpress.com/2008/06/03/logging-in-with-facebook-java-api/
+ * The original code can be found at: 
+ * http://straylink.wordpress.com/2008/06/03/logging-in-with-facebook-java-api/
  */
 public class FacebookFriendFetcher {
 	
-	private static String API_KEY = "Your API Key";
-	private static String SECRET = "Your Secret Key";
+	private static String API_KEY = "YOUR API KEY";
+	private static String SECRET = "YOUR SECRET";
 	
 	public FacebookFriendFetcher()
 	{}
@@ -39,7 +43,8 @@ public class FacebookFriendFetcher {
 			String url = "http://www.facebook.com/login.php?api_key=" + API_KEY
 					+ "&v=1.0" + "&auth_token=" + token;
 			// Open an external browser to login to your application
-			Runtime.getRuntime().exec("open " + url); // OS X only!
+			OpenBrowser(url);
+
 			// Wait until the login process is completed
 			System.out.println("Use browser to login then press return");
 			System.in.read();
@@ -80,6 +85,22 @@ public class FacebookFriendFetcher {
 		}
 		
 		return userNames;
+	}
+	
+	private void OpenBrowser(String uri) throws IOException
+	{
+		Desktop desktop = null;
+		if (Desktop.isDesktopSupported())
+		{
+			desktop = Desktop.getDesktop();
+			if(desktop.isSupported(Action.BROWSE))
+			{
+				URI newUri = URI.create(uri);
+				desktop.browse(newUri);
+			}
+			//TODO: Error message
+		}
+		//TODO: Error message
 	}
 	
 
