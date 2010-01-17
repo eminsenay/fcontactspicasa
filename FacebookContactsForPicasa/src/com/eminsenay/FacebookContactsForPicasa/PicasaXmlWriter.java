@@ -39,7 +39,7 @@ public class PicasaXmlWriter
 		Document document = documentBuilder.newDocument();
 		Element rootElement = document.createElement(m_PicasaXmlRoot);
 		document.appendChild(rootElement);
-		for (int i = 1; i < users.size(); i++) 
+		for (int i = 0; i < users.size(); i++) 
 		{
 			PicasaContact currContact = users.get(i);
 			Element em = document.createElement(m_PicasaXmlContactElement);
