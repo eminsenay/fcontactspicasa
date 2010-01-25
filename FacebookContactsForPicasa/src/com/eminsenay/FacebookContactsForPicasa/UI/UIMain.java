@@ -43,9 +43,9 @@ public class UIMain extends Composite {
 		{
 			buttonRun = new Button(this, SWT.PUSH | SWT.CENTER);
 			FormData buttonRunLData = new FormData();
-			buttonRunLData.top =  new FormAttachment(0, 1000, 41);
-			buttonRunLData.width = 47;
-			buttonRunLData.height = 23;
+			buttonRunLData.top =  new FormAttachment(0, 1000, 35);
+			buttonRunLData.width = 61;
+			buttonRunLData.height = 29;
 			buttonRunLData.right =  new FormAttachment(1000, 1000, -12);
 			buttonRun.setLayoutData(buttonRunLData);
 			buttonRun.setText("Run");
@@ -58,9 +58,9 @@ public class UIMain extends Composite {
 		{
 			buttonBrowse = new Button(this, SWT.PUSH | SWT.CENTER);
 			FormData buttonBrowseLData = new FormData();
-			buttonBrowseLData.width = 47;
-			buttonBrowseLData.height = 23;
-			buttonBrowseLData.top =  new FormAttachment(0, 1000, 12);
+			buttonBrowseLData.width = 62;
+			buttonBrowseLData.height = 28;
+			buttonBrowseLData.top =  new FormAttachment(0, 1000, 5);
 			buttonBrowseLData.right =  new FormAttachment(1000, 1000, -11);
 			buttonBrowse.setLayoutData(buttonBrowseLData);
 			buttonBrowse.setText("Browse");
@@ -72,11 +72,11 @@ public class UIMain extends Composite {
 		}
 		{
 			FormData textContactsXmlPathLData = new FormData();
-			textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 146);
-			textContactsXmlPathLData.top =  new FormAttachment(0, 1000, 17);
-			textContactsXmlPathLData.width = 304;
+			textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 166);
+			textContactsXmlPathLData.top =  new FormAttachment(0, 1000, 12);
+			textContactsXmlPathLData.width = 299;
 			textContactsXmlPathLData.height = 13;
-			textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -71);
+			textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -85);
 			textContactsXmlPath = new Text(this, SWT.NONE);
 			textContactsXmlPath.setLayoutData(textContactsXmlPathLData);
 		}
@@ -84,8 +84,8 @@ public class UIMain extends Composite {
 			labelContactsXmlPath = new Label(this, SWT.NONE);
 			FormData labelContactsXmlPathLData = new FormData();
 			labelContactsXmlPathLData.left =  new FormAttachment(0, 1000, 12);
-			labelContactsXmlPathLData.top =  new FormAttachment(0, 1000, 17);
-			labelContactsXmlPathLData.width = 122;
+			labelContactsXmlPathLData.top =  new FormAttachment(0, 1000, 12);
+			labelContactsXmlPathLData.width = 154;
 			labelContactsXmlPathLData.height = 13;
 			labelContactsXmlPath.setLayoutData(labelContactsXmlPathLData);
 			labelContactsXmlPath.setText("Path of the contacts.xml:");
