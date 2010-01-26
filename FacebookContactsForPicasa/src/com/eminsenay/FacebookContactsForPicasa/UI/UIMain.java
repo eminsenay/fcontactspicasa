@@ -4,12 +4,14 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.eminsenay.FacebookContactsForPicasa.Application;
@@ -28,6 +30,7 @@ import com.eminsenay.FacebookContactsForPicasa.Application;
 */
 public class UIMain extends Composite {
 	private Label labelContactsXmlPath;
+	private Button buttonLogin;
 	private Button buttonRun;
 	private Button buttonBrowse;
 	private Text textContactsXmlPath;
@@ -40,6 +43,21 @@ public class UIMain extends Composite {
 	private void initialize() {
 		FormLayout thisLayout = new FormLayout();
 		this.setLayout(thisLayout);
+		{
+			buttonLogin = new Button(this, SWT.PUSH | SWT.CENTER);
+			FormData buttonLoginLData = new FormData();
+			buttonLoginLData.left =  new FormAttachment(0, 1000, 12);
+			buttonLoginLData.top =  new FormAttachment(0, 1000, 64);
+			buttonLoginLData.width = 99;
+			buttonLoginLData.height = 23;
+			buttonLogin.setLayoutData(buttonLoginLData);
+			buttonLogin.setText("Login to Facebook");
+			buttonLogin.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					buttonLoginWidgetSelected(evt);
+				}
+			});
+		}
 		{
 			buttonRun = new Button(this, SWT.PUSH | SWT.CENTER);
 			FormData buttonRunLData = new FormData();
@@ -112,6 +130,20 @@ public class UIMain extends Composite {
         {
         	textContactsXmlPath.setText(selected);	
         }
+	}
+	
+	private void buttonLoginWidgetSelected(SelectionEvent evt)
+	{
+		final Shell dialog = new Shell(this.getShell(), SWT.APPLICATION_MODAL
+				| SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX);
+		dialog.setText("Browser");
+		dialog.setSize(400, 300);
+		dialog.setLayout(new FillLayout());
+		
+		UIBrowser browser = new UIBrowser(dialog, SWT.NONE);
+		browser.OpenURL("http://www.facebook.com/login.php?api_key=51131cfef6080b4e5e0e48fc1ba50580&connect_display=popup&v=1.0&next=http://www.facebook.com/connect/login_success.html&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&session_key_only=true");
+		
+		dialog.open();
 	}
 
 }
