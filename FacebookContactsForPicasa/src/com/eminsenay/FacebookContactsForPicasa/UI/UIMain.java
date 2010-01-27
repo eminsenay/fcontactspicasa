@@ -11,6 +11,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -31,6 +32,7 @@ import com.eminsenay.FacebookContactsForPicasa.Application;
 public class UIMain extends Composite {
 	private Label labelContactsXmlPath;
 	private Button buttonLogin;
+	private List listFacebookContacts;
 	private Button buttonRun;
 	private Button buttonBrowse;
 	private Text textContactsXmlPath;
@@ -44,14 +46,23 @@ public class UIMain extends Composite {
 		FormLayout thisLayout = new FormLayout();
 		this.setLayout(thisLayout);
 		{
+			FormData listFacebookContactsLData = new FormData();
+			listFacebookContactsLData.left =  new FormAttachment(0, 1000, 12);
+			listFacebookContactsLData.top =  new FormAttachment(0, 1000, 52);
+			listFacebookContactsLData.width = 209;
+			listFacebookContactsLData.height = 272;
+			listFacebookContacts = new List(this, SWT.NONE);
+			listFacebookContacts.setLayoutData(listFacebookContactsLData);
+		}
+		{
 			buttonLogin = new Button(this, SWT.PUSH | SWT.CENTER);
 			FormData buttonLoginLData = new FormData();
 			buttonLoginLData.left =  new FormAttachment(0, 1000, 12);
-			buttonLoginLData.top =  new FormAttachment(0, 1000, 64);
-			buttonLoginLData.width = 99;
-			buttonLoginLData.height = 23;
+			buttonLoginLData.top =  new FormAttachment(0, 1000, 12);
+			buttonLoginLData.width = 161;
+			buttonLoginLData.height = 28;
 			buttonLogin.setLayoutData(buttonLoginLData);
-			buttonLogin.setText("Login to Facebook");
+			buttonLogin.setText("Get Facebook Contacts");
 			buttonLogin.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					buttonLoginWidgetSelected(evt);
@@ -61,7 +72,7 @@ public class UIMain extends Composite {
 		{
 			buttonRun = new Button(this, SWT.PUSH | SWT.CENTER);
 			FormData buttonRunLData = new FormData();
-			buttonRunLData.top =  new FormAttachment(0, 1000, 35);
+			buttonRunLData.top =  new FormAttachment(0, 1000, 295);
 			buttonRunLData.width = 61;
 			buttonRunLData.height = 29;
 			buttonRunLData.right =  new FormAttachment(1000, 1000, -12);
@@ -78,8 +89,8 @@ public class UIMain extends Composite {
 			FormData buttonBrowseLData = new FormData();
 			buttonBrowseLData.width = 62;
 			buttonBrowseLData.height = 28;
-			buttonBrowseLData.top =  new FormAttachment(0, 1000, 5);
-			buttonBrowseLData.right =  new FormAttachment(1000, 1000, -11);
+			buttonBrowseLData.top =  new FormAttachment(0, 1000, 12);
+			buttonBrowseLData.right =  new FormAttachment(1000, 1000, -12);
 			buttonBrowse.setLayoutData(buttonBrowseLData);
 			buttonBrowse.setText("Browse");
 			buttonBrowse.addSelectionListener(new SelectionAdapter() {
@@ -90,26 +101,26 @@ public class UIMain extends Composite {
 		}
 		{
 			FormData textContactsXmlPathLData = new FormData();
-			textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 166);
-			textContactsXmlPathLData.top =  new FormAttachment(0, 1000, 12);
-			textContactsXmlPathLData.width = 299;
+			textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 387);
+			textContactsXmlPathLData.top =  new FormAttachment(0, 1000, 19);
+			textContactsXmlPathLData.width = 319;
 			textContactsXmlPathLData.height = 13;
-			textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -85);
+			textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -80);
 			textContactsXmlPath = new Text(this, SWT.NONE);
 			textContactsXmlPath.setLayoutData(textContactsXmlPathLData);
 		}
 		{
 			labelContactsXmlPath = new Label(this, SWT.NONE);
 			FormData labelContactsXmlPathLData = new FormData();
-			labelContactsXmlPathLData.left =  new FormAttachment(0, 1000, 12);
-			labelContactsXmlPathLData.top =  new FormAttachment(0, 1000, 12);
+			labelContactsXmlPathLData.left =  new FormAttachment(0, 1000, 221);
+			labelContactsXmlPathLData.top =  new FormAttachment(0, 1000, 19);
 			labelContactsXmlPathLData.width = 154;
 			labelContactsXmlPathLData.height = 13;
 			labelContactsXmlPath.setLayoutData(labelContactsXmlPathLData);
 			labelContactsXmlPath.setText("Path of the contacts.xml:");
 		}
 		pack();
-		this.setSize(550, 200);
+		this.setSize(787, 336);
 	}
 	
 	private void buttonRunWidgetSelected(SelectionEvent evt) {
