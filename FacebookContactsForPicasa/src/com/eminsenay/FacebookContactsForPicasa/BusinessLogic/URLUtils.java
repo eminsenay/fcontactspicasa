@@ -1,4 +1,4 @@
-package com.eminsenay.FacebookContactsForPicasa;
+package com.eminsenay.FacebookContactsForPicasa.BusinessLogic;
 
 public class URLUtils {
 

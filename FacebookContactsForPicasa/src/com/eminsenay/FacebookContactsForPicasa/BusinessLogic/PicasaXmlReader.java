@@ -1,4 +1,4 @@
-package com.eminsenay.FacebookContactsForPicasa;
+package com.eminsenay.FacebookContactsForPicasa.BusinessLogic;
 
 import java.io.File;
 import java.util.ArrayList;
