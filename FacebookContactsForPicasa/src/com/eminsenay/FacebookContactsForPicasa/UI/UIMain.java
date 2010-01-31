@@ -1,5 +1,9 @@
 package com.eminsenay.FacebookContactsForPicasa.UI;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.SWT;
@@ -17,6 +21,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import com.eminsenay.FacebookContactsForPicasa.BusinessLogic.*;
@@ -45,22 +50,49 @@ public class UIMain extends Composite {
 	private Button buttonLogin;
 	private Group groupPicasaSettings;
 	private Button buttonGetPicasaContacts;
-	private Combo comboSynchronizeWith;
-	private Text textContactNickname;
+	private Combo comboMergeWith;
 	private Text textContactName;
-	private Label labelContactSynchronize;
-	private Label labelContactNickname;
+	private Label labelContactMerge;
 	private Label labelContactName;
 	private List listFacebookContacts;
-	private Button buttonRun;
+	private Button buttonSave;
 	private Button buttonBrowse;
 	private Text textContactsXmlPath;
 	private FacebookFriendFetcher facebookFriendFetcher;
+	private ArrayList<PicasaContact> m_FacebookFriends;
+	private ArrayList<PicasaContact> m_PicasaContacts;
+	private Hashtable<Integer, Integer> m_FacebookPicasaMap;
+	
+	public Hashtable<Integer, Integer> getFacebookPicasaMap() {
+		return m_FacebookPicasaMap;
+	}
+
+	public void setFacebookPicasaMap(
+			Hashtable<Integer, Integer> facebookPicasaMap) {
+		m_FacebookPicasaMap = facebookPicasaMap;
+	}
+
+	public ArrayList<PicasaContact> getPicasaContacts() {
+		return m_PicasaContacts;
+	}
+
+	public void setPicasaContacts(ArrayList<PicasaContact> picasaContacts) {
+		m_PicasaContacts = picasaContacts;
+	}
+
+	public ArrayList<PicasaContact> getFacebookFriends() {
+		return m_FacebookFriends;
+	}
+
+	public void setFacebookFriends(ArrayList<PicasaContact> facebookFriends) {
+		m_FacebookFriends = facebookFriends;
+	}
 
 	public UIMain(Composite parent, int style) {
 		super(parent, style);
 		initialize();
 		facebookFriendFetcher = new FacebookFriendFetcher();
+		this.setFacebookPicasaMap(new Hashtable<Integer, Integer>());
 	}
 
 	private void initialize() {
@@ -71,31 +103,31 @@ public class UIMain extends Composite {
 			FormLayout groupPicasaSettingsLayout = new FormLayout();
 			groupPicasaSettings.setLayout(groupPicasaSettingsLayout);
 			FormData groupPicasaSettingsLData = new FormData();
-			groupPicasaSettingsLData.left =  new FormAttachment(0, 1000, 12);
-			groupPicasaSettingsLData.top =  new FormAttachment(0, 1000, 7);
-			groupPicasaSettingsLData.width = 578;
-			groupPicasaSettingsLData.height = 38;
-			groupPicasaSettingsLData.right =  new FormAttachment(1000, 1000, -12);
+			groupPicasaSettingsLData.left =  new FormAttachment(0, 1000, 248);
+			groupPicasaSettingsLData.top =  new FormAttachment(0, 1000, 12);
+			groupPicasaSettingsLData.width = 470;
+			groupPicasaSettingsLData.height = 79;
+			groupPicasaSettingsLData.right =  new FormAttachment(1000, 1000, -20);
 			groupPicasaSettings.setLayoutData(groupPicasaSettingsLData);
 			groupPicasaSettings.setText("Picasa Settings");
 			{
 				labelContactsXmlPath = new Label(groupPicasaSettings, SWT.NONE);
 				FormData labelContactsXmlPathLData = new FormData();
-				labelContactsXmlPathLData.width = 112;
-				labelContactsXmlPathLData.height = 13;
-				labelContactsXmlPathLData.left =  new FormAttachment(0, 1000, 8);
-				labelContactsXmlPathLData.top =  new FormAttachment(328, 1000, 0);
+				labelContactsXmlPathLData.width = 480;
+				labelContactsXmlPathLData.height = 16;
+				labelContactsXmlPathLData.left =  new FormAttachment(0, 1000, 5);
+				labelContactsXmlPathLData.top =  new FormAttachment(64, 1000, 0);
 				labelContactsXmlPath.setLayoutData(labelContactsXmlPathLData);
 				labelContactsXmlPath.setText("Contacts.xml Path:");
 			}
 			{
 				FormData textContactsXmlPathLData = new FormData();
-				textContactsXmlPathLData.width = 227;
-				textContactsXmlPathLData.height = 19;
-				textContactsXmlPathLData.top =  new FormAttachment(242, 1000, 0);
-				textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 126);
-				textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -217);
-				textContactsXmlPathLData.bottom =  new FormAttachment(785, 1000, 0);
+				textContactsXmlPathLData.width = 384;
+				textContactsXmlPathLData.height = 16;
+				textContactsXmlPathLData.top =  new FormAttachment(335, 1000, 0);
+				textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 5);
+				textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -79);
+				textContactsXmlPathLData.bottom =  new FormAttachment(546, 1000, 0);
 				textContactsXmlPath = new Text(groupPicasaSettings, SWT.NONE);
 				textContactsXmlPath.setLayoutData(textContactsXmlPathLData);
 				textContactsXmlPath.setOrientation(SWT.HORIZONTAL);
@@ -104,10 +136,10 @@ public class UIMain extends Composite {
 			{
 				buttonBrowse = new Button(groupPicasaSettings, SWT.PUSH | SWT.CENTER);
 				FormData buttonBrowseLData = new FormData();
-				buttonBrowseLData.width = 60;
+				buttonBrowseLData.width = 66;
 				buttonBrowseLData.height = 26;
-				buttonBrowseLData.top =  new FormAttachment(128, 1000, 0);
-				buttonBrowseLData.right =  new FormAttachment(1000, 1000, -145);
+				buttonBrowseLData.top =  new FormAttachment(256, 1000, 0);
+				buttonBrowseLData.right =  new FormAttachment(1000, 1000, -1);
 				buttonBrowse.setLayoutData(buttonBrowseLData);
 				buttonBrowse.setText("Browse");
 				buttonBrowse.addSelectionListener(new SelectionAdapter() {
@@ -119,42 +151,37 @@ public class UIMain extends Composite {
 			{
 				buttonGetPicasaContacts = new Button(groupPicasaSettings, SWT.PUSH | SWT.CENTER);
 				FormData buttonGetPicasaContactsLData = new FormData();
-				buttonGetPicasaContactsLData.width = 124;
+				buttonGetPicasaContactsLData.width = 135;
 				buttonGetPicasaContactsLData.height = 26;
-				buttonGetPicasaContactsLData.top =  new FormAttachment(128, 1000, 0);
-				buttonGetPicasaContactsLData.right =  new FormAttachment(1000, 1000, -9);
+				buttonGetPicasaContactsLData.top =  new FormAttachment(664, 1000, 0);
+				buttonGetPicasaContactsLData.right =  new FormAttachment(1000, 1000, 2);
 				buttonGetPicasaContacts.setLayoutData(buttonGetPicasaContactsLData);
 				buttonGetPicasaContacts.setText("Get Picasa Contacts");
+				buttonGetPicasaContacts.addSelectionListener(new SelectionAdapter() {
+					public void widgetSelected(SelectionEvent evt) {
+						buttonGetPicasaContactsWidgetSelected(evt);
+					}
+				});
 			}
 		}
 		{
-			comboSynchronizeWith = new Combo(this, SWT.NONE);
-			FormData comboSynchronizeWithLData = new FormData();
-			comboSynchronizeWithLData.left =  new FormAttachment(0, 1000, 387);
-			comboSynchronizeWithLData.top =  new FormAttachment(0, 1000, 206);
-			comboSynchronizeWithLData.width = 126;
-			comboSynchronizeWithLData.height = 21;
-			comboSynchronizeWithLData.right =  new FormAttachment(1000, 1000, -66);
-			comboSynchronizeWith.setLayoutData(comboSynchronizeWithLData);
-			comboSynchronizeWith.setText("None");
-			comboSynchronizeWith.setFont(SWTResourceManager.getFont("Tahoma", 10, 0, false, false));
-		}
-		{
-			FormData textContactNicknameLData = new FormData();
-			textContactNicknameLData.left =  new FormAttachment(0, 1000, 387);
-			textContactNicknameLData.top =  new FormAttachment(0, 1000, 178);
-			textContactNicknameLData.width = 149;
-			textContactNicknameLData.height = 19;
-			textContactNicknameLData.right =  new FormAttachment(1000, 1000, -66);
-			textContactNickname = new Text(this, SWT.NONE);
-			textContactNickname.setLayoutData(textContactNicknameLData);
-			textContactNickname.setFont(SWTResourceManager.getFont("Tahoma", 10, 0, false, false));
+			comboMergeWith = new Combo(this, SWT.DROP_DOWN | SWT.READ_ONLY);
+			FormData comboMergeWithLData = new FormData();
+			comboMergeWithLData.left =  new FormAttachment(0, 1000, 387);
+			comboMergeWithLData.top =  new FormAttachment(0, 1000, 175);
+			comboMergeWithLData.width = 297;
+			comboMergeWithLData.height = 23;
+			comboMergeWithLData.right =  new FormAttachment(1000, 1000, -66);
+			comboMergeWith.setLayoutData(comboMergeWithLData);
+			comboMergeWith.add("None");
+			comboMergeWith.select(0);
+			comboMergeWith.setFont(SWTResourceManager.getFont("Tahoma", 10, 0, false, false));
 		}
 		{
 			FormData textContactNameLData = new FormData();
 			textContactNameLData.left =  new FormAttachment(0, 1000, 387);
-			textContactNameLData.top =  new FormAttachment(0, 1000, 151);
-			textContactNameLData.width = 149;
+			textContactNameLData.top =  new FormAttachment(0, 1000, 137);
+			textContactNameLData.width = 297;
 			textContactNameLData.height = 18;
 			textContactNameLData.right =  new FormAttachment(1000, 1000, -66);
 			textContactName = new Text(this, SWT.NONE);
@@ -162,51 +189,46 @@ public class UIMain extends Composite {
 			textContactName.setFont(SWTResourceManager.getFont("Tahoma", 10, 0, false, false));
 		}
 		{
-			labelContactSynchronize = new Label(this, SWT.NONE);
-			FormData labelContactSynchronizeLData = new FormData();
-			labelContactSynchronizeLData.left =  new FormAttachment(0, 1000, 247);
-			labelContactSynchronizeLData.top =  new FormAttachment(0, 1000, 211);
-			labelContactSynchronizeLData.width = 107;
-			labelContactSynchronizeLData.height = 13;
-			labelContactSynchronize.setLayoutData(labelContactSynchronizeLData);
-			labelContactSynchronize.setText("Synchronize With:");
-		}
-		{
-			labelContactNickname = new Label(this, SWT.NONE);
-			FormData labelContactNicknameLData = new FormData();
-			labelContactNicknameLData.left =  new FormAttachment(0, 1000, 247);
-			labelContactNicknameLData.top =  new FormAttachment(0, 1000, 181);
-			labelContactNicknameLData.width = 107;
-			labelContactNicknameLData.height = 13;
-			labelContactNickname.setLayoutData(labelContactNicknameLData);
-			labelContactNickname.setText("Nickname:");
+			labelContactMerge = new Label(this, SWT.NONE);
+			FormData labelContactMergeLData = new FormData();
+			labelContactMergeLData.left =  new FormAttachment(0, 1000, 248);
+			labelContactMergeLData.top =  new FormAttachment(0, 1000, 177);
+			labelContactMergeLData.width = 107;
+			labelContactMergeLData.height = 18;
+			labelContactMerge.setLayoutData(labelContactMergeLData);
+			labelContactMerge.setText("Merge With:");
 		}
 		{
 			labelContactName = new Label(this, SWT.NONE);
 			FormData labelContactNameLData = new FormData();
-			labelContactNameLData.left =  new FormAttachment(0, 1000, 247);
-			labelContactNameLData.top =  new FormAttachment(0, 1000, 153);
+			labelContactNameLData.left =  new FormAttachment(0, 1000, 248);
+			labelContactNameLData.top =  new FormAttachment(0, 1000, 138);
 			labelContactNameLData.width = 107;
-			labelContactNameLData.height = 13;
+			labelContactNameLData.height = 16;
 			labelContactName.setLayoutData(labelContactNameLData);
 			labelContactName.setText("Name:");
 		}
 		{
 			FormData listFacebookContactsLData = new FormData();
 			listFacebookContactsLData.left =  new FormAttachment(0, 1000, 12);
-			listFacebookContactsLData.top =  new FormAttachment(0, 1000, 113);
+			listFacebookContactsLData.top =  new FormAttachment(0, 1000, 48);
 			listFacebookContactsLData.width = 209;
-			listFacebookContactsLData.height = 221;
+			listFacebookContactsLData.height = 286;
 			listFacebookContactsLData.bottom =  new FormAttachment(1000, 1000, -12);
 			listFacebookContacts = new List(this, SWT.V_SCROLL);
 			listFacebookContacts.setLayoutData(listFacebookContactsLData);
 			listFacebookContacts.setFont(SWTResourceManager.getFont("Tahoma", 10, 0, false, false));
+			listFacebookContacts.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent evt) {
+					listFacebookContactsWidgetSelected(evt);
+				}
+			});
 		}
 		{
 			buttonLogin = new Button(this, SWT.PUSH | SWT.CENTER);
 			FormData buttonLoginLData = new FormData();
 			buttonLoginLData.left =  new FormAttachment(0, 1000, 12);
-			buttonLoginLData.top =  new FormAttachment(0, 1000, 73);
+			buttonLoginLData.top =  new FormAttachment(0, 1000, 12);
 			buttonLoginLData.width = 161;
 			buttonLoginLData.height = 28;
 			buttonLogin.setLayoutData(buttonLoginLData);
@@ -218,28 +240,25 @@ public class UIMain extends Composite {
 			});
 		}
 		{
-			buttonRun = new Button(this, SWT.PUSH | SWT.CENTER);
-			FormData buttonRunLData = new FormData();
-			buttonRunLData.width = 61;
-			buttonRunLData.height = 29;
-			buttonRunLData.right =  new FormAttachment(1000, 1000, -12);
-			buttonRunLData.bottom =  new FormAttachment(1000, 1000, -12);
-			buttonRun.setLayoutData(buttonRunLData);
-			buttonRun.setText("Save");
-			buttonRun.addSelectionListener(new SelectionAdapter() {
+			buttonSave = new Button(this, SWT.PUSH | SWT.CENTER);
+			FormData buttonSaveLData = new FormData();
+			buttonSaveLData.width = 61;
+			buttonSaveLData.height = 29;
+			buttonSaveLData.right =  new FormAttachment(1000, 1000, -12);
+			buttonSaveLData.bottom =  new FormAttachment(1000, 1000, -12);
+			buttonSave.setLayoutData(buttonSaveLData);
+			buttonSave.setText("Save");
+			buttonSave.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					buttonRunWidgetSelected(evt);
 				}
 			});
 		}
 		pack();
-		this.setSize(608, 346);
 	}
 	
 	private void buttonRunWidgetSelected(SelectionEvent evt) {
-		Application app = new Application();
-		app.setContactsXmlPath(textContactsXmlPath.getText());
-		app.Run();
+		//TODO: implement
 	}
 	
 	private void buttonBrowseWidgetSelected(SelectionEvent evt) {
@@ -265,6 +284,13 @@ public class UIMain extends Composite {
 		dialog.setLayout(new FillLayout());
 		
 		UIBrowser browser = new UIBrowser(dialog, SWT.NONE);
+		
+		// Not using AutoClose feature because of an error in Mac
+		// __NSAutoreleaseNoPool(): Object 0x100677900 of class NSEvent autoreleased with no pool in place - just leaking
+		//ArrayList<String> autoCloseURLs = new ArrayList<String>();
+		//autoCloseURLs.add("http://www.facebook.com/connect/login_success.html");
+		//autoCloseURLs.add("http://www.facebook.com/connect/login_failure.html");
+		//browser.setAutoCloseURLs(autoCloseURLs);
 		browser.OpenURL("http://www.facebook.com/login.php?api_key=51131cfef6080b4e5e0e48fc1ba50580&connect_display=popup&v=1.0&next=http://www.facebook.com/connect/login_success.html&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&session_key_only=true");
 		
 		dialog.open();
@@ -277,15 +303,95 @@ public class UIMain extends Composite {
 		String currAddress = browser.getCurrentAddress();
 		if (facebookFriendFetcher.ParseUrl(currAddress))
 		{
-			ArrayList<PicasaContact> facebookFriends =
-				facebookFriendFetcher.GetFriends();
+			getFacebookPicasaMap().clear();
+			ArrayList<PicasaContact> facebookFriends = facebookFriendFetcher.GetFriends();
+			Collections.sort(facebookFriends, new Comparator<PicasaContact>() {
+				  public int compare(PicasaContact c1, PicasaContact c2) {
+		               return c1.getName().compareToIgnoreCase(c2.getName());
+		            }
+			});
+			setFacebookFriends(facebookFriends);
 			
 			for (PicasaContact picasaContact : facebookFriends) {
 //				System.out.println(picasaContact.getName());
 				listFacebookContacts.add(picasaContact.getName());
 			}
 		}
+		MatchContacts();
 //		System.out.println("Address:" + currAddress);
+	}
+	
+	private void listFacebookContactsWidgetSelected(SelectionEvent evt) {
+		int selectionIndex = listFacebookContacts.getSelectionIndex();
+		PicasaContact activeContact = getFacebookFriends().get(selectionIndex);
+		textContactName.setText(activeContact.getName());
+		Hashtable<Integer, Integer> facebookPicasaMap = getFacebookPicasaMap();
+		Integer i_SelectionIndex = new Integer(selectionIndex);
+		if (facebookPicasaMap.containsKey(i_SelectionIndex))
+		{
+			comboMergeWith.select(getFacebookPicasaMap().get(i_SelectionIndex).intValue() + 1);
+		}
+		else
+		{
+			comboMergeWith.select(0); // select None
+		}
+	}
+	
+	private void buttonGetPicasaContactsWidgetSelected(SelectionEvent evt) {
+		if (textContactsXmlPath != null && textContactsXmlPath.getText() != null &&
+				textContactsXmlPath.getText() != "")
+		{
+			PicasaXmlReader reader = new PicasaXmlReader(textContactsXmlPath.getText());
+			try {
+				ArrayList<PicasaContact> picasaContacts = reader.Read();
+				Collections.sort(picasaContacts, new Comparator<PicasaContact>() {
+					  public int compare(PicasaContact c1, PicasaContact c2) {
+			               return c1.getName().compareToIgnoreCase(c2.getName());
+			            }
+				});
+				setPicasaContacts(picasaContacts);
+				for (Iterator<PicasaContact> iterator = picasaContacts.iterator(); iterator
+						.hasNext();) {
+					PicasaContact picasaContact = iterator.next();
+					comboMergeWith.add(picasaContact.getName());
+				}
+				getFacebookPicasaMap().clear();
+				MatchContacts();
+				MessageBox mb = new MessageBox(this.getShell(), SWT.OK);
+				mb.setText("Facebook Contacts for Picasa");
+				mb.setMessage("Existing Picasa contacts are read successfully.");
+				mb.open();
+			} catch (Exception e) {
+				MessageBox mb = new MessageBox(this.getShell(), SWT.OK);
+				mb.setText("Facebook Contacts for Picasa");
+				mb.setMessage("Contacts.xml could not be read.");
+				mb.open();
+			}
+		}
+	}
+	
+	private void MatchContacts()
+	{
+		ArrayList<PicasaContact> facebookFriends = getFacebookFriends();
+		ArrayList<PicasaContact> picasaContacts = getPicasaContacts();
+		Hashtable<Integer, Integer> facebookPicasaMap = getFacebookPicasaMap();
+		if (facebookFriends != null && !facebookFriends.isEmpty() &&
+				picasaContacts != null && !picasaContacts.isEmpty())
+		{
+			facebookPicasaMap.clear();
+			for (int i = 0; i < facebookFriends.size(); i++)
+			{
+				for(int j = 0; j < picasaContacts.size(); j++)
+				{
+					if (facebookFriends.get(i).getName().equalsIgnoreCase(
+							picasaContacts.get(j).getName()))
+					{
+						facebookPicasaMap.put(new Integer(i), new Integer(j));
+						break;
+					}
+				}
+			}
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.eminsenay.FacebookContactsForPicasa.UI;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationAdapter;
@@ -23,6 +25,10 @@ import org.eclipse.swt.widgets.Composite;
 public class UIBrowser extends Composite {
 	private Browser browser1;
 	private String currentAddress;
+	/**
+	 * List of URLs which causes the browser to close itself automatically.
+	 * */
+	private ArrayList<String> m_AutoCloseURLs;
 
 	private void setCurrentAddress(String currentAddress) {
 		this.currentAddress = currentAddress;
@@ -30,6 +36,14 @@ public class UIBrowser extends Composite {
 
 	public String getCurrentAddress() {
 		return currentAddress;
+	}
+	
+	public void setAutoCloseURLs(ArrayList<String> m_AutoCloseURLs) {
+		this.m_AutoCloseURLs = m_AutoCloseURLs;
+	}
+
+	private ArrayList<String> getAutoCloseURLs() {
+		return m_AutoCloseURLs;
 	}
 	
 	public UIBrowser(Composite parent, int style) {
@@ -60,5 +74,14 @@ public class UIBrowser extends Composite {
 	private void browser1Changed(LocationEvent evt) 
 	{
 		setCurrentAddress(evt.location);
+		if (getAutoCloseURLs() != null && !getAutoCloseURLs().isEmpty())
+		{
+			for (String autoCloseURL : getAutoCloseURLs()) {
+				if(evt.location.startsWith(autoCloseURL))
+				{
+					this.getShell().close();
+				}
+			}
+		}
 	}
 }
