@@ -3,13 +3,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
-import java.util.Iterator;
-
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.layout.FillLayout;
@@ -105,29 +102,29 @@ public class UIMain extends Composite {
 			FormData groupPicasaSettingsLData = new FormData();
 			groupPicasaSettingsLData.left =  new FormAttachment(0, 1000, 248);
 			groupPicasaSettingsLData.top =  new FormAttachment(0, 1000, 12);
-			groupPicasaSettingsLData.width = 470;
-			groupPicasaSettingsLData.height = 79;
-			groupPicasaSettingsLData.right =  new FormAttachment(1000, 1000, -20);
+			groupPicasaSettingsLData.width = 512;
+			groupPicasaSettingsLData.height = 98;
+			groupPicasaSettingsLData.right =  new FormAttachment(1000, 1000, -12);
 			groupPicasaSettings.setLayoutData(groupPicasaSettingsLData);
 			groupPicasaSettings.setText("Picasa Settings");
 			{
 				labelContactsXmlPath = new Label(groupPicasaSettings, SWT.NONE);
 				FormData labelContactsXmlPathLData = new FormData();
-				labelContactsXmlPathLData.width = 480;
+				labelContactsXmlPathLData.width = 498;
 				labelContactsXmlPathLData.height = 16;
 				labelContactsXmlPathLData.left =  new FormAttachment(0, 1000, 5);
-				labelContactsXmlPathLData.top =  new FormAttachment(64, 1000, 0);
+				labelContactsXmlPathLData.top =  new FormAttachment(66, 1000, 0);
 				labelContactsXmlPath.setLayoutData(labelContactsXmlPathLData);
 				labelContactsXmlPath.setText("Contacts.xml Path:");
 			}
 			{
 				FormData textContactsXmlPathLData = new FormData();
-				textContactsXmlPathLData.width = 384;
-				textContactsXmlPathLData.height = 16;
-				textContactsXmlPathLData.top =  new FormAttachment(335, 1000, 0);
+				textContactsXmlPathLData.width = 422;
+				textContactsXmlPathLData.height = 21;
+				textContactsXmlPathLData.top =  new FormAttachment(270, 1000, 0);
 				textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 5);
 				textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -79);
-				textContactsXmlPathLData.bottom =  new FormAttachment(546, 1000, 0);
+				textContactsXmlPathLData.bottom =  new FormAttachment(484, 1000, 0);
 				textContactsXmlPath = new Text(groupPicasaSettings, SWT.NONE);
 				textContactsXmlPath.setLayoutData(textContactsXmlPathLData);
 				textContactsXmlPath.setOrientation(SWT.HORIZONTAL);
@@ -136,10 +133,10 @@ public class UIMain extends Composite {
 			{
 				buttonBrowse = new Button(groupPicasaSettings, SWT.PUSH | SWT.CENTER);
 				FormData buttonBrowseLData = new FormData();
-				buttonBrowseLData.width = 66;
-				buttonBrowseLData.height = 26;
-				buttonBrowseLData.top =  new FormAttachment(256, 1000, 0);
-				buttonBrowseLData.right =  new FormAttachment(1000, 1000, -1);
+				buttonBrowseLData.width = 64;
+				buttonBrowseLData.height = 30;
+				buttonBrowseLData.top =  new FormAttachment(229, 1000, 0);
+				buttonBrowseLData.right =  new FormAttachment(1000, 1000, -9);
 				buttonBrowse.setLayoutData(buttonBrowseLData);
 				buttonBrowse.setText("Browse");
 				buttonBrowse.addSelectionListener(new SelectionAdapter() {
@@ -151,10 +148,10 @@ public class UIMain extends Composite {
 			{
 				buttonGetPicasaContacts = new Button(groupPicasaSettings, SWT.PUSH | SWT.CENTER);
 				FormData buttonGetPicasaContactsLData = new FormData();
-				buttonGetPicasaContactsLData.width = 148;
-				buttonGetPicasaContactsLData.height = 26;
-				buttonGetPicasaContactsLData.top =  new FormAttachment(664, 1000, 0);
-				buttonGetPicasaContactsLData.right =  new FormAttachment(1000, 1000, 2);
+				buttonGetPicasaContactsLData.width = 143;
+				buttonGetPicasaContactsLData.height = 30;
+				buttonGetPicasaContactsLData.top =  new FormAttachment(658, 1000, 0);
+				buttonGetPicasaContactsLData.right =  new FormAttachment(1000, 1000, -9);
 				buttonGetPicasaContacts.setLayoutData(buttonGetPicasaContactsLData);
 				buttonGetPicasaContacts.setText("Get Picasa Contacts");
 				buttonGetPicasaContacts.addSelectionListener(new SelectionAdapter() {
@@ -169,9 +166,9 @@ public class UIMain extends Composite {
 			FormData comboMergeWithLData = new FormData();
 			comboMergeWithLData.left =  new FormAttachment(0, 1000, 387);
 			comboMergeWithLData.top =  new FormAttachment(0, 1000, 175);
-			comboMergeWithLData.width = 297;
-			comboMergeWithLData.height = 23;
-			comboMergeWithLData.right =  new FormAttachment(1000, 1000, -66);
+			comboMergeWithLData.width = 351;
+			comboMergeWithLData.height = 24;
+			comboMergeWithLData.right =  new FormAttachment(1000, 1000, -12);
 			comboMergeWith.setLayoutData(comboMergeWithLData);
 			comboMergeWith.add("None");
 			comboMergeWith.select(0);
@@ -181,9 +178,9 @@ public class UIMain extends Composite {
 			FormData textContactNameLData = new FormData();
 			textContactNameLData.left =  new FormAttachment(0, 1000, 387);
 			textContactNameLData.top =  new FormAttachment(0, 1000, 137);
-			textContactNameLData.width = 297;
+			textContactNameLData.width = 373;
 			textContactNameLData.height = 18;
-			textContactNameLData.right =  new FormAttachment(1000, 1000, -66);
+			textContactNameLData.right =  new FormAttachment(1000, 1000, -12);
 			textContactName = new Text(this, SWT.NONE);
 			textContactName.setLayoutData(textContactNameLData);
 			textContactName.setFont(SWTResourceManager.getFont("Tahoma", 10, 0, false, false));
@@ -192,7 +189,7 @@ public class UIMain extends Composite {
 			labelContactMerge = new Label(this, SWT.NONE);
 			FormData labelContactMergeLData = new FormData();
 			labelContactMergeLData.left =  new FormAttachment(0, 1000, 248);
-			labelContactMergeLData.top =  new FormAttachment(0, 1000, 177);
+			labelContactMergeLData.top =  new FormAttachment(0, 1000, 178);
 			labelContactMergeLData.width = 107;
 			labelContactMergeLData.height = 18;
 			labelContactMerge.setLayoutData(labelContactMergeLData);
@@ -226,13 +223,14 @@ public class UIMain extends Composite {
 		}
 		{
 			buttonLogin = new Button(this, SWT.PUSH | SWT.CENTER);
-			FormData buttonLoginLData = new FormData();
+			FormData buttonLoginLData = new FormData(161, 30);
 			buttonLoginLData.left =  new FormAttachment(0, 1000, 12);
 			buttonLoginLData.top =  new FormAttachment(0, 1000, 12);
 			buttonLoginLData.width = 161;
-			buttonLoginLData.height = 28;
+			buttonLoginLData.height = 30;
 			buttonLogin.setLayoutData(buttonLoginLData);
 			buttonLogin.setText("Get Facebook Contacts");
+			buttonLogin.setSize(161, 30);
 			buttonLogin.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					buttonLoginWidgetSelected(evt);
@@ -241,13 +239,14 @@ public class UIMain extends Composite {
 		}
 		{
 			buttonSave = new Button(this, SWT.PUSH | SWT.CENTER);
-			FormData buttonSaveLData = new FormData();
-			buttonSaveLData.width = 61;
-			buttonSaveLData.height = 29;
+			FormData buttonSaveLData = new FormData(60, 30);
+			buttonSaveLData.width = 60;
+			buttonSaveLData.height = 30;
 			buttonSaveLData.right =  new FormAttachment(1000, 1000, -12);
 			buttonSaveLData.bottom =  new FormAttachment(1000, 1000, -12);
 			buttonSave.setLayoutData(buttonSaveLData);
 			buttonSave.setText("Save");
+			buttonSave.setSize(60, 30);
 			buttonSave.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					buttonRunWidgetSelected(evt);
