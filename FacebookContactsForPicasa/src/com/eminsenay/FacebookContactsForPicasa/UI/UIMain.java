@@ -81,21 +81,21 @@ public class UIMain extends Composite {
 			{
 				labelContactsXmlPath = new Label(groupPicasaSettings, SWT.NONE);
 				FormData labelContactsXmlPathLData = new FormData();
-				labelContactsXmlPathLData.width = 138;
+				labelContactsXmlPathLData.width = 112;
 				labelContactsXmlPathLData.height = 13;
 				labelContactsXmlPathLData.left =  new FormAttachment(0, 1000, 8);
-				labelContactsXmlPathLData.top =  new FormAttachment(250, 1000, 0);
+				labelContactsXmlPathLData.top =  new FormAttachment(328, 1000, 0);
 				labelContactsXmlPath.setLayoutData(labelContactsXmlPathLData);
 				labelContactsXmlPath.setText("Contacts.xml Path:");
 			}
 			{
 				FormData textContactsXmlPathLData = new FormData();
-				textContactsXmlPathLData.width = 229;
-				textContactsXmlPathLData.height = 20;
-				textContactsXmlPathLData.top =  new FormAttachment(171, 1000, 0);
-				textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 154);
-				textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -189);
-				textContactsXmlPathLData.bottom =  new FormAttachment(697, 1000, 0);
+				textContactsXmlPathLData.width = 227;
+				textContactsXmlPathLData.height = 19;
+				textContactsXmlPathLData.top =  new FormAttachment(242, 1000, 0);
+				textContactsXmlPathLData.left =  new FormAttachment(0, 1000, 126);
+				textContactsXmlPathLData.right =  new FormAttachment(1000, 1000, -217);
+				textContactsXmlPathLData.bottom =  new FormAttachment(785, 1000, 0);
 				textContactsXmlPath = new Text(groupPicasaSettings, SWT.NONE);
 				textContactsXmlPath.setLayoutData(textContactsXmlPathLData);
 				textContactsXmlPath.setOrientation(SWT.HORIZONTAL);
@@ -106,8 +106,8 @@ public class UIMain extends Composite {
 				FormData buttonBrowseLData = new FormData();
 				buttonBrowseLData.width = 60;
 				buttonBrowseLData.height = 26;
-				buttonBrowseLData.top =  new FormAttachment(92, 1000, 0);
-				buttonBrowseLData.right =  new FormAttachment(1000, 1000, -123);
+				buttonBrowseLData.top =  new FormAttachment(128, 1000, 0);
+				buttonBrowseLData.right =  new FormAttachment(1000, 1000, -145);
 				buttonBrowse.setLayoutData(buttonBrowseLData);
 				buttonBrowse.setText("Browse");
 				buttonBrowse.addSelectionListener(new SelectionAdapter() {
@@ -119,9 +119,9 @@ public class UIMain extends Composite {
 			{
 				buttonGetPicasaContacts = new Button(groupPicasaSettings, SWT.PUSH | SWT.CENTER);
 				FormData buttonGetPicasaContactsLData = new FormData();
-				buttonGetPicasaContactsLData.width = 108;
+				buttonGetPicasaContactsLData.width = 124;
 				buttonGetPicasaContactsLData.height = 26;
-				buttonGetPicasaContactsLData.top =  new FormAttachment(92, 1000, 0);
+				buttonGetPicasaContactsLData.top =  new FormAttachment(128, 1000, 0);
 				buttonGetPicasaContactsLData.right =  new FormAttachment(1000, 1000, -9);
 				buttonGetPicasaContacts.setLayoutData(buttonGetPicasaContactsLData);
 				buttonGetPicasaContacts.setText("Get Picasa Contacts");
