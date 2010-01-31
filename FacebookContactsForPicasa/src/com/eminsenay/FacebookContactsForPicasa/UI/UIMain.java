@@ -151,7 +151,7 @@ public class UIMain extends Composite {
 			{
 				buttonGetPicasaContacts = new Button(groupPicasaSettings, SWT.PUSH | SWT.CENTER);
 				FormData buttonGetPicasaContactsLData = new FormData();
-				buttonGetPicasaContactsLData.width = 135;
+				buttonGetPicasaContactsLData.width = 148;
 				buttonGetPicasaContactsLData.height = 26;
 				buttonGetPicasaContactsLData.top =  new FormAttachment(664, 1000, 0);
 				buttonGetPicasaContactsLData.right =  new FormAttachment(1000, 1000, 2);
@@ -350,9 +350,8 @@ public class UIMain extends Composite {
 			            }
 				});
 				setPicasaContacts(picasaContacts);
-				for (Iterator<PicasaContact> iterator = picasaContacts.iterator(); iterator
-						.hasNext();) {
-					PicasaContact picasaContact = iterator.next();
+				for (int i = 0; i < picasaContacts.size(); i++) {
+					PicasaContact picasaContact = picasaContacts.get(i);
 					comboMergeWith.add(picasaContact.getName());
 				}
 				getFacebookPicasaMap().clear();
