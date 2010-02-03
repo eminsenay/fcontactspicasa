@@ -26,9 +26,8 @@ public class PicasaXmlWriter
 	private static String m_PicasaXmlModifiedTimeAttr = "modified_time";
 	private static String m_PicasaXmlSyncEnabledAttr = "sync_enabled";
 
-	public void CreatePicasaUserXml(List<PicasaContact> users) throws Exception 
+	public void CreatePicasaUserXml(List<PicasaContact> users, String outputPath) throws Exception 
 	{
-
 		Random random =  new Random();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
 	    
@@ -91,7 +90,7 @@ public class PicasaXmlWriter
 		Transformer transformer = transformerFactory.newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(new File("output.xml"));
+		StreamResult result = new StreamResult(new File(outputPath));
 		transformer.transform(source, result);
 	}
 

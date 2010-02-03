@@ -1,70 +1,71 @@
 package com.eminsenay.FacebookContactsForPicasa.BusinessLogic;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
-public class Application {
-
-	private String m_contactsXmlPath;
-	
-	public String getContactsXmlPath() 
-	{
-		return m_contactsXmlPath;
-	}
-
-	public void setContactsXmlPath(String contactsXmlPath) 
-	{
-		this.m_contactsXmlPath = contactsXmlPath;
-	}
-
+public class Application 
+{
 	public Application()
 	{}
 	
-	public void Run()
-	{
-		FacebookFriendFetcher friendFetcher = new FacebookFriendFetcher();
-		ArrayList<PicasaContact> friends = friendFetcher.GetFriends();
-		
-		PicasaXmlReader xmlReader = new PicasaXmlReader(getContactsXmlPath());
-		PicasaXmlWriter xmlWriter = new PicasaXmlWriter();
-		try 
-		{
-			ArrayList<PicasaContact> existingContacts = xmlReader.Read();
-			ArrayList<PicasaContact> allContacts = MergeContacts(existingContacts, friends);
-			xmlWriter.CreatePicasaUserXml(allContacts);
-		}
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-		}
-	}
-	/** Merges given two Picasa Contact Lists.
-	 *  Second parameter is used as a basis. Each PicasaContact of
-	 *  first parameter is compared with the ones in second parameter wrt 
-	 *  Name and added if not found.
+	/**
+	 * Merges Facebook friends with Picasa contacts using the given hashtable and
+	 * creates an output file to be used as the new Picasa contacts.xml. 
+	 * Existing Picasa contacts are kept.
+	 * @throws Exception 
 	 * */
-	private ArrayList<PicasaContact> MergeContacts(ArrayList<PicasaContact> base,
-			ArrayList<PicasaContact> mergeWith)
+	public void SaveContacts(ArrayList<PicasaContact> facebookFriends, 
+			ArrayList<PicasaContact> picasaContacts, Hashtable<Integer, Integer> facebookPicasaMap,
+			String outputPath) throws Exception
 	{
-		ArrayList<PicasaContact> allContacts = new ArrayList<PicasaContact>();
-		allContacts.addAll(base);
-		boolean contactFound = false;
-		for (int i = 0; i < mergeWith.size(); i++)
+		ArrayList<PicasaContact> mergedFriends = MergeFriends(facebookFriends, picasaContacts, 
+				facebookPicasaMap);
+		PicasaXmlWriter writer = new PicasaXmlWriter();
+		writer.CreatePicasaUserXml(mergedFriends, outputPath);
+	}
+
+	private ArrayList<PicasaContact> MergeFriends(ArrayList<PicasaContact> facebookFriends,
+			ArrayList<PicasaContact> picasaContacts,
+			Hashtable<Integer, Integer> facebookPicasaMap)
+	{
+		ArrayList<PicasaContact> mergedFriends = new ArrayList<PicasaContact>();
+		// Keep the mapped contact indices in a separate list to determine
+		// which Picasa contacts need to be added to the mergedFriends.
+		int[] mappedPicasaContacts = new int[picasaContacts.size()];
+		for (int i = 0; i < mappedPicasaContacts.length; i++)
 		{
-			contactFound = false;
-			String nextFriendName = mergeWith.get(i).getName();
-			for (int j = 0; j < base.size(); j++)
+			mappedPicasaContacts[i] = 0;
+		}
+
+		for (int i = 0; i < facebookFriends.size(); i++)
+		{
+			PicasaContact nextFacebookFriend = facebookFriends.get(i);
+			PicasaContact newContact = new PicasaContact();
+			Integer mapKey = new Integer(i);
+			newContact.setName(nextFacebookFriend.getName());
+			if (facebookPicasaMap.containsKey(mapKey))
 			{
-				if (nextFriendName.equalsIgnoreCase(base.get(j).getName()))
-				{
-					contactFound = true;
-					break;
-				}
+				// Mapping found. Use the information from Picasa for the rest.
+				Integer picasaContactsIndex = facebookPicasaMap.get(mapKey);
+				mappedPicasaContacts[picasaContactsIndex.intValue()] = 1;
+				PicasaContact mappedPicasaContact = picasaContacts.get(
+						picasaContactsIndex.intValue());
+				newContact.setDisplay(mappedPicasaContact.getDisplay());
+				newContact.setID(mappedPicasaContact.getID());
+				newContact.setSyncEnabled(mappedPicasaContact.getSyncEnabled());
 			}
-			if (!contactFound)
+			mergedFriends.add(newContact);
+		}
+		// Find all non-mapped existing Picasa Friends and add them to mergedFriends
+		for (int i = 0; i < picasaContacts.size(); i++)
+		{
+			PicasaContact nextContact = picasaContacts.get(i);
+			if (mappedPicasaContacts[i] == 0)
 			{
-				allContacts.add(mergeWith.get(i));
+				mergedFriends.add(nextContact);
 			}
 		}
-		return allContacts;
+		
+		return mergedFriends;
 	}
 }

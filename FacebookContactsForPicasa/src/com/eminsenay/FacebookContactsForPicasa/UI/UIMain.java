@@ -7,6 +7,7 @@ import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.layout.FillLayout;
@@ -18,6 +19,8 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -45,6 +48,10 @@ public class UIMain extends Composite {
 	
 	private Label labelContactsXmlPath;
 	private Button buttonLogin;
+	private MenuItem aboutMenuItem;
+	private Menu menu2;
+	private MenuItem helpMenuItem;
+	private Menu menu1;
 	private Group groupPicasaSettings;
 	private Button buttonGetPicasaContacts;
 	private Combo comboMergeWith;
@@ -95,6 +102,27 @@ public class UIMain extends Composite {
 	private void initialize() {
 		FormLayout thisLayout = new FormLayout();
 		this.setLayout(thisLayout);
+		{
+			menu1 = new Menu(getShell(), SWT.BAR);
+			getShell().setMenuBar(menu1);
+			{
+				helpMenuItem = new MenuItem(menu1, SWT.CASCADE);
+				helpMenuItem.setText("Help");
+				{
+					menu2 = new Menu(helpMenuItem);
+					helpMenuItem.setMenu(menu2);
+					{
+						aboutMenuItem = new MenuItem(menu2, SWT.PUSH);
+						aboutMenuItem.setText("About...");
+						aboutMenuItem.addSelectionListener(new SelectionAdapter() {
+							public void widgetSelected(SelectionEvent evt) {
+								aboutMenuItemWidgetSelected(evt);
+							}
+						});
+					}
+				}
+			}
+		}
 		{
 			groupPicasaSettings = new Group(this, SWT.NONE);
 			FormLayout groupPicasaSettingsLayout = new FormLayout();
@@ -208,9 +236,9 @@ public class UIMain extends Composite {
 		{
 			FormData listFacebookContactsLData = new FormData();
 			listFacebookContactsLData.left =  new FormAttachment(0, 1000, 12);
-			listFacebookContactsLData.top =  new FormAttachment(0, 1000, 48);
+			listFacebookContactsLData.top =  new FormAttachment(0, 1000, 56);
 			listFacebookContactsLData.width = 209;
-			listFacebookContactsLData.height = 286;
+			listFacebookContactsLData.height = 278;
 			listFacebookContactsLData.bottom =  new FormAttachment(1000, 1000, -12);
 			listFacebookContacts = new List(this, SWT.V_SCROLL);
 			listFacebookContacts.setLayoutData(listFacebookContactsLData);
@@ -223,14 +251,13 @@ public class UIMain extends Composite {
 		}
 		{
 			buttonLogin = new Button(this, SWT.PUSH | SWT.CENTER);
-			FormData buttonLoginLData = new FormData(161, 30);
+			FormData buttonLoginLData = new FormData();
 			buttonLoginLData.left =  new FormAttachment(0, 1000, 12);
-			buttonLoginLData.top =  new FormAttachment(0, 1000, 12);
+			buttonLoginLData.top =  new FormAttachment(0, 1000, 14);
 			buttonLoginLData.width = 161;
 			buttonLoginLData.height = 30;
 			buttonLogin.setLayoutData(buttonLoginLData);
 			buttonLogin.setText("Get Facebook Contacts");
-			buttonLogin.setSize(161, 30);
 			buttonLogin.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
 					buttonLoginWidgetSelected(evt);
@@ -249,15 +276,30 @@ public class UIMain extends Composite {
 			buttonSave.setSize(60, 30);
 			buttonSave.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent evt) {
-					buttonRunWidgetSelected(evt);
+					buttonSaveWidgetSelected(evt);
 				}
 			});
 		}
 		pack();
 	}
 	
-	private void buttonRunWidgetSelected(SelectionEvent evt) {
-		//TODO: implement
+	private void buttonSaveWidgetSelected(SelectionEvent evt)
+	{
+		FileDialog dialog = new FileDialog(this.getShell(), SWT.SAVE);
+		String fileName = dialog.open();
+		if (fileName != null && !fileName.equals(""))
+		{
+			Application app = new Application();
+			try {
+				app.SaveContacts(getFacebookFriends(), getPicasaContacts(), getFacebookPicasaMap(), 
+						fileName);
+			} catch (Exception e) {
+				MessageBox mb = new MessageBox(this.getShell(), SWT.OK);
+				mb.setText("Facebook Contacts for Picasa");
+				mb.setMessage(fileName + "could not be created.\nDetails:\n" + e.getMessage());
+				mb.open();
+			}
+		}
 	}
 	
 	private void buttonBrowseWidgetSelected(SelectionEvent evt) {
@@ -390,6 +432,28 @@ public class UIMain extends Composite {
 				}
 			}
 		}
+	}
+	
+	private void aboutMenuItemWidgetSelected(SelectionEvent evt)
+	{
+		final Shell dialog = new Shell(this.getShell(), SWT.APPLICATION_MODAL
+				| SWT.DIALOG_TRIM);
+		dialog.setText("About");
+	    dialog.setLayout(new FillLayout());
+	    dialog.setSize(300, 150);
+	    
+	    // Probably the silliest way to display the child form at the center of the parent form
+		Rectangle pDisplayBounds = getShell().getBounds();
+		Rectangle dialogBounds = dialog.getBounds();
+	    // This formula calculate the shell's Left ant Top
+		int nLeft = pDisplayBounds.x + pDisplayBounds.width / 2 - dialogBounds.width / 2;
+		int nTop = pDisplayBounds.y + pDisplayBounds.height / 2 - dialogBounds.height / 2;
+	    // Set shell bounds,
+		dialog.setLocation(nLeft, nTop);
+
+		final AboutBox aboutBox = new AboutBox(dialog, SWT.NONE);
+
+		dialog.open();
 	}
 
 }
