@@ -31,7 +31,6 @@ public class AboutBox extends Composite {
 	}
 
 	private void initialize() {
-		this.setSize(300, 100);
 		FormLayout thisLayout = new FormLayout();
 		this.setLayout(thisLayout);
 		{
@@ -40,7 +39,7 @@ public class AboutBox extends Composite {
 			authorLabelLData.left =  new FormAttachment(0, 1000, 12);
 			authorLabelLData.top =  new FormAttachment(0, 1000, 56);
 			authorLabelLData.width = 276;
-			authorLabelLData.height = 13;
+			authorLabelLData.height = 19;
 			authorLabel.setLayoutData(authorLabelLData);
 			authorLabel.setText("Author: Emin \u015eenay");
 			authorLabel.setAlignment(SWT.CENTER);
@@ -48,10 +47,10 @@ public class AboutBox extends Composite {
 		{
 			sourceforgeLink = new Link(this, SWT.NONE);
 			FormData sourceforgeLinkLData = new FormData();
-			sourceforgeLinkLData.left =  new FormAttachment(0, 1000, 104);
+			sourceforgeLinkLData.left =  new FormAttachment(0, 1000, 103);
 			sourceforgeLinkLData.top =  new FormAttachment(0, 1000, 75);
-			sourceforgeLinkLData.width = 93;
-			sourceforgeLinkLData.height = 13;
+			sourceforgeLinkLData.width = 122;
+			sourceforgeLinkLData.height = 19;
 			sourceforgeLink.setLayoutData(sourceforgeLinkLData);
 			sourceforgeLink.setText("<a href=\"http://fcontactspicasa.sourceforge.net\">Project Homepage</a>");
 		}
@@ -61,7 +60,7 @@ public class AboutBox extends Composite {
 			versionLabelLData.left =  new FormAttachment(0, 1000, 12);
 			versionLabelLData.top =  new FormAttachment(0, 1000, 31);
 			versionLabelLData.width = 276;
-			versionLabelLData.height = 13;
+			versionLabelLData.height = 19;
 			versionLabel.setLayoutData(versionLabelLData);
 			versionLabel.setText("version 0.1");
 			versionLabel.setAlignment(SWT.CENTER);
@@ -72,11 +71,12 @@ public class AboutBox extends Composite {
 			headerLabelLData.left =  new FormAttachment(0, 1000, 12);
 			headerLabelLData.top =  new FormAttachment(0, 1000, 12);
 			headerLabelLData.width = 276;
-			headerLabelLData.height = 13;
+			headerLabelLData.height = 19;
 			headerLabel.setLayoutData(headerLabelLData);
 			headerLabel.setText("Facebook Contacts for Picasa");
 			headerLabel.setAlignment(SWT.CENTER);
 		}
+		pack();
 	}
 
 }
