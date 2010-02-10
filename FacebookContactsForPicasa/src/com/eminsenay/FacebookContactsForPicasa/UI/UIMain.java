@@ -286,6 +286,7 @@ public class UIMain extends Composite {
 	private void buttonSaveWidgetSelected(SelectionEvent evt)
 	{
 		FileDialog dialog = new FileDialog(this.getShell(), SWT.SAVE);
+		dialog.setFileName("contacts.xml");
 		String fileName = dialog.open();
 		if (fileName != null && !fileName.equals(""))
 		{
