@@ -13,8 +13,13 @@
 	<classpathentry kind="lib" path="lib/json-20080701.jar"/>
 	<classpathentry kind="lib" path="lib/runtime-0.4.1.5.jar"/>
 	<classpathentry kind="lib" path="lib/stax-api-1.0-2.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.swt_3.6.0.v3617.jar"/>
+	<classpathentry kind="lib" path="lib/swt_windows.jar"/>
+	<classpathentry kind="con" path="SWT_CONTAINER"/>
+	<!-- Uncomment the necessary lines to build in your preferred development platform
 	<classpathentry kind="lib" path="lib/org.eclipse.swt.cocoa.macosx.x86_64_3.6.0.v3617.jar"/>
 	<classpathentry kind="lib" path="lib/org.eclipse.swt_3.6.0.v3617.jar"/>
-	<classpathentry kind="lib" path="lib/swt_linux.jar"/>
+	<classpathentry kind="lib" path="lib/swt_linux.jar"/> 
+	-->
 	<classpathentry kind="output" path="bin"/>
 </classpath>
