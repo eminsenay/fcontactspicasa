@@ -28,6 +28,14 @@ public class Application
 			ArrayList<PicasaContact> picasaContacts,
 			Hashtable<Integer, Integer> facebookPicasaMap)
 	{
+		if (facebookFriends == null || facebookFriends.size() == 0)
+		{
+			return picasaContacts;
+		}
+		if (picasaContacts == null || picasaContacts.size() == 0)
+		{
+			return facebookFriends;
+		}
 		ArrayList<PicasaContact> mergedFriends = new ArrayList<PicasaContact>();
 		// Keep the mapped contact indices in a separate list to determine
 		// which Picasa contacts need to be added to the mergedFriends.

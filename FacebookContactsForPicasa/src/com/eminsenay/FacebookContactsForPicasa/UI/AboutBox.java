@@ -22,8 +22,8 @@ import org.eclipse.swt.widgets.Link;
 public class AboutBox extends Composite {
 	private Label headerLabel;
 	private Label versionLabel;
-	private Link sourceforgeLink;
 	private Label authorLabel;
+	private Label labelHomepage;
 
 	public AboutBox(Composite parent, int style) {
 		super(parent, style);
@@ -34,33 +34,34 @@ public class AboutBox extends Composite {
 		FormLayout thisLayout = new FormLayout();
 		this.setLayout(thisLayout);
 		{
+			labelHomepage = new Label(this, SWT.NONE);
+			FormData labelHomepageLData = new FormData();
+			labelHomepageLData.left =  new FormAttachment(0, 1000, 12);
+			labelHomepageLData.top =  new FormAttachment(0, 1000, 75);
+			labelHomepageLData.width = 264;
+			labelHomepageLData.height = 18;
+			labelHomepage.setLayoutData(labelHomepageLData);
+			labelHomepage.setText("http://fcontactspicasa.sourceforge.net");
+			labelHomepage.setAlignment(SWT.CENTER);
+		}
+		{
 			authorLabel = new Label(this, SWT.NONE);
 			FormData authorLabelLData = new FormData();
 			authorLabelLData.left =  new FormAttachment(0, 1000, 12);
-			authorLabelLData.top =  new FormAttachment(0, 1000, 56);
-			authorLabelLData.width = 276;
-			authorLabelLData.height = 19;
+			authorLabelLData.top =  new FormAttachment(0, 1000, 54);
+			authorLabelLData.width = 264;
+			authorLabelLData.height = 18;
 			authorLabel.setLayoutData(authorLabelLData);
 			authorLabel.setText("Author: Emin \u015eenay");
 			authorLabel.setAlignment(SWT.CENTER);
 		}
 		{
-			sourceforgeLink = new Link(this, SWT.NONE);
-			FormData sourceforgeLinkLData = new FormData();
-			sourceforgeLinkLData.left =  new FormAttachment(0, 1000, 103);
-			sourceforgeLinkLData.top =  new FormAttachment(0, 1000, 75);
-			sourceforgeLinkLData.width = 122;
-			sourceforgeLinkLData.height = 19;
-			sourceforgeLink.setLayoutData(sourceforgeLinkLData);
-			sourceforgeLink.setText("<a href=\"http://fcontactspicasa.sourceforge.net\">Project Homepage</a>");
-		}
-		{
 			versionLabel = new Label(this, SWT.NONE);
 			FormData versionLabelLData = new FormData();
 			versionLabelLData.left =  new FormAttachment(0, 1000, 12);
-			versionLabelLData.top =  new FormAttachment(0, 1000, 31);
-			versionLabelLData.width = 276;
-			versionLabelLData.height = 19;
+			versionLabelLData.top =  new FormAttachment(0, 1000, 33);
+			versionLabelLData.width = 264;
+			versionLabelLData.height = 18;
 			versionLabel.setLayoutData(versionLabelLData);
 			versionLabel.setText("version 0.1");
 			versionLabel.setAlignment(SWT.CENTER);
@@ -70,8 +71,8 @@ public class AboutBox extends Composite {
 			FormData headerLabelLData = new FormData();
 			headerLabelLData.left =  new FormAttachment(0, 1000, 12);
 			headerLabelLData.top =  new FormAttachment(0, 1000, 12);
-			headerLabelLData.width = 276;
-			headerLabelLData.height = 19;
+			headerLabelLData.width = 264;
+			headerLabelLData.height = 18;
 			headerLabel.setLayoutData(headerLabelLData);
 			headerLabel.setText("Facebook Contacts for Picasa");
 			headerLabel.setAlignment(SWT.CENTER);
