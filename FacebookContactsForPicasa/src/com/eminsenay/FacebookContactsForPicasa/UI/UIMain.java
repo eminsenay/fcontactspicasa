@@ -438,10 +438,10 @@ public class UIMain extends Composite {
 	private void aboutMenuItemWidgetSelected(SelectionEvent evt)
 	{
 		final Shell dialog = new Shell(this.getShell(), SWT.APPLICATION_MODAL
-				| SWT.DIALOG_TRIM);
+				| SWT.DIALOG_TRIM | SWT.RESIZE);
 		dialog.setText("About");
 	    dialog.setLayout(new FillLayout());
-	    dialog.setSize(300, 150);
+	    dialog.setSize(750, 250);
 	    
 	    // Probably the silliest way to display the child form at the center of the parent form
 		Rectangle pDisplayBounds = getShell().getBounds();
