@@ -58,9 +58,8 @@ public class Application
 				mappedPicasaContacts[picasaContactsIndex.intValue()] = 1;
 				PicasaContact mappedPicasaContact = picasaContacts.get(
 						picasaContactsIndex.intValue());
-				newContact.setDisplay(mappedPicasaContact.getDisplay());
 				newContact.setID(mappedPicasaContact.getID());
-				newContact.setSyncEnabled(mappedPicasaContact.getSyncEnabled());
+				newContact.setLocalContact(mappedPicasaContact.getLocalContact());
 			}
 			mergedFriends.add(newContact);
 		}

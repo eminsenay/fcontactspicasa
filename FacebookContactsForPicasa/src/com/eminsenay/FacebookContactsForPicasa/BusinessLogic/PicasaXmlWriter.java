@@ -22,9 +22,8 @@ public class PicasaXmlWriter
 	private static String m_PicasaXmlContactElement = "contact";
 	private static String m_PicasaXmlIDAttr = "id";
 	private static String m_PicasaXmlNameAttr = "name";
-	private static String m_PicasaXmlDisplayAttr = "display";
 	private static String m_PicasaXmlModifiedTimeAttr = "modified_time";
-	private static String m_PicasaXmlSyncEnabledAttr = "sync_enabled";
+	private static String m_PicasaXmlLocalContactAttr = "local_contact";
 
 	public void CreatePicasaUserXml(List<PicasaContact> users, String outputPath) throws Exception 
 	{
@@ -55,15 +54,6 @@ public class PicasaXmlWriter
 		    	em.setAttribute(m_PicasaXmlIDAttr, contactId);
 		    }
 		    
-		    if (currContact.getDisplay() != null)
-		    {
-		    	em.setAttribute(m_PicasaXmlDisplayAttr, currContact.getDisplay());
-		    }
-		    else
-		    {
-		    	em.setAttribute(m_PicasaXmlDisplayAttr, currContact.getName());
-		    }
-		    
 		    if (currContact.getModifiedTime() != null)
 		    {
 		    	em.setAttribute(m_PicasaXmlModifiedTimeAttr, currContact.getModifiedTime());
@@ -74,13 +64,13 @@ public class PicasaXmlWriter
 		    	em.setAttribute(m_PicasaXmlModifiedTimeAttr, formattedDate);
 		    }
 		    
-		    if (currContact.getSyncEnabled() != null)
+		    if (currContact.getLocalContact() != null)
 		    {
-		    	em.setAttribute(m_PicasaXmlSyncEnabledAttr, currContact.getSyncEnabled());
+		    	em.setAttribute(m_PicasaXmlLocalContactAttr, currContact.getLocalContact());
 		    }
 		    else
 		    {
-		    	em.setAttribute(m_PicasaXmlSyncEnabledAttr, "1");
+		    	em.setAttribute(m_PicasaXmlLocalContactAttr, "1");
 		    }
 
 			rootElement.appendChild(em);

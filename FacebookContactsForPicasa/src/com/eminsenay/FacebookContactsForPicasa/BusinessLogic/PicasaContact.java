@@ -4,9 +4,8 @@ public class PicasaContact {
 	
 	private String m_ID;
 	private String m_Name;
-	private String m_Display;
 	private String m_ModifiedTime;
-	private String m_SyncEnabled;
+	private String m_LocalContact;
 	
 	public String getID() {
 		return m_ID;
@@ -20,23 +19,17 @@ public class PicasaContact {
 	public void setName(String name) {
 		m_Name = name;
 	}
-	public String getDisplay() {
-		return m_Display;
-	}
-	public void setDisplay(String display) {
-		m_Display = display;
-	}
 	public String getModifiedTime() {
 		return m_ModifiedTime;
 	}
 	public void setModifiedTime(String modifiedTime) {
 		m_ModifiedTime = modifiedTime;
 	}
-	public String getSyncEnabled() {
-		return m_SyncEnabled;
+	public String getLocalContact() {
+		return m_LocalContact;
 	}
-	public void setSyncEnabled(String syncEnabled) {
-		m_SyncEnabled = syncEnabled;
+	public void setLocalContact(String localContact) {
+		m_LocalContact = localContact;
 	}
 	
 }

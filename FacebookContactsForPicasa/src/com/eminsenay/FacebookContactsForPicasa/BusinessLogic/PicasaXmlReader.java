@@ -17,9 +17,8 @@ public class PicasaXmlReader {
 	private static String m_PicasaXmlContactElement = "contact";
 	private static String m_PicasaXmlIDAttr = "id";
 	private static String m_PicasaXmlNameAttr = "name";
-	private static String m_PicasaXmlDisplayAttr = "display";
 	private static String m_PicasaXmlModifiedTimeAttr = "modified_time";
-	private static String m_PicasaXmlSyncEnabledAttr = "sync_enabled";
+	private static String m_PicasaXmlLocalContactAttr = "local_contact";
 	
 	private String m_FilePath;
 	
@@ -59,17 +58,13 @@ public class PicasaXmlReader {
 				{
 					contact.setName(nextAttrVal);
 				}
-				else if (nextAttrName.equalsIgnoreCase(m_PicasaXmlDisplayAttr))
-				{
-					contact.setDisplay(nextAttrVal);
-				}
 				else if (nextAttrName.equalsIgnoreCase(m_PicasaXmlModifiedTimeAttr))
 				{
 					contact.setModifiedTime(nextAttrVal);
 				}
-				else if (nextAttrName.equalsIgnoreCase(m_PicasaXmlSyncEnabledAttr))
+				else if (nextAttrName.equalsIgnoreCase(m_PicasaXmlLocalContactAttr))
 				{
-					contact.setSyncEnabled(nextAttrVal);
+					contact.setLocalContact(nextAttrVal);
 				}
 			}
 			
