@@ -1,4 +1,4 @@
-﻿Picasa keeps the contacts in an xml file called "Contacts.xml" (At least in v3.6.1. New: Version 3.8.0 Build 115.45, 0 still uses it).
+﻿Picasa keeps the contacts in an xml file called "Contacts.xml".
 
 Default contacts.xml paths for different platforms are as follows:
 

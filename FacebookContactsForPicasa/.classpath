@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="lib/org.eclipse.swt_3.6.0.v3617.jar"/>
 	<classpathentry kind="con" path="SWT_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/swt_windows_x64.jar"/>
+	<classpathentry kind="lib" path="swing2swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
