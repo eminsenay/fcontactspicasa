@@ -1,30 +1,18 @@
 package com.eminsenay.FacebookContactsForPicasa.UI;
+
+import com.eminsenay.FacebookContactsForPicasa.BusinessLogic.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
+
 import com.cloudgarden.resource.SWTResourceManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.*;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
-import com.eminsenay.FacebookContactsForPicasa.BusinessLogic.*;
+import org.eclipse.swt.layout.*;
+import org.eclipse.swt.widgets.*;
 
 /**
 * This code was edited or generated using CloudGarden's Jigloo
@@ -38,7 +26,8 @@ import com.eminsenay.FacebookContactsForPicasa.BusinessLogic.*;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class UIMain extends Composite {
+public class UIMain extends Composite 
+{
 
 	{
 		//Register as a resource user - SWTResourceManager will
@@ -63,43 +52,34 @@ public class UIMain extends Composite {
 	private Button buttonBrowse;
 	private Text textContactsXmlPath;
 	private FacebookFriendFetcher facebookFriendFetcher;
-	private ArrayList<PicasaContact> m_FacebookFriends;
-	private ArrayList<PicasaContact> m_PicasaContacts;
+	private java.util.List<PicasaContact> m_FacebookFriends;
+	private java.util.List<PicasaContact> m_PicasaContacts;
 	private Hashtable<Integer, Integer> m_FacebookPicasaMap;
 	
-	public Hashtable<Integer, Integer> getFacebookPicasaMap() {
-		return m_FacebookPicasaMap;
-	}
-
-	public void setFacebookPicasaMap(
-			Hashtable<Integer, Integer> facebookPicasaMap) {
+	public Hashtable<Integer, Integer> getFacebookPicasaMap() {	return m_FacebookPicasaMap; }
+	public void setFacebookPicasaMap(Hashtable<Integer, Integer> facebookPicasaMap) 
+	{
 		m_FacebookPicasaMap = facebookPicasaMap;
 	}
 
-	public ArrayList<PicasaContact> getPicasaContacts() {
-		return m_PicasaContacts;
-	}
-
-	public void setPicasaContacts(ArrayList<PicasaContact> picasaContacts) {
-		m_PicasaContacts = picasaContacts;
-	}
-
-	public ArrayList<PicasaContact> getFacebookFriends() {
-		return m_FacebookFriends;
-	}
-
-	public void setFacebookFriends(ArrayList<PicasaContact> facebookFriends) {
+	public java.util.List<PicasaContact> getPicasaContacts() { return m_PicasaContacts;	}
+	public void setPicasaContacts(ArrayList<PicasaContact> picasaContacts) { m_PicasaContacts = picasaContacts; }
+	public java.util.List<PicasaContact> getFacebookFriends() {	return m_FacebookFriends; }
+	public void setFacebookFriends(java.util.List<PicasaContact> facebookFriends) 
+	{	
 		m_FacebookFriends = facebookFriends;
 	}
 
-	public UIMain(Composite parent, int style) {
+	public UIMain(Composite parent, int style) 
+	{
 		super(parent, style);
 		initialize();
 		facebookFriendFetcher = new FacebookFriendFetcher();
 		this.setFacebookPicasaMap(new Hashtable<Integer, Integer>());
 	}
 
-	private void initialize() {
+	private void initialize() 
+	{
 		FormLayout thisLayout = new FormLayout();
 		this.setLayout(thisLayout);
 		{
@@ -294,7 +274,9 @@ public class UIMain extends Composite {
 			try {
 				app.SaveContacts(getFacebookFriends(), getPicasaContacts(), getFacebookPicasaMap(), 
 						fileName);
-			} catch (Exception e) {
+			} 
+			catch (Exception e) 
+			{
 				MessageBox mb = new MessageBox(this.getShell(), SWT.OK);
 				mb.setText("Facebook Contacts for Picasa");
 				mb.setMessage(fileName + "could not be created.\nDetails:\n" + e.getMessage());
@@ -303,7 +285,8 @@ public class UIMain extends Composite {
 		}
 	}
 	
-	private void buttonBrowseWidgetSelected(SelectionEvent evt) {
+	private void buttonBrowseWidgetSelected(SelectionEvent evt) 
+	{
 		FileDialog fd = new FileDialog(this.getShell(), SWT.OPEN);
         fd.setText("Open");
         //...Local Settings\Application Data\Google\Picasa2\contacts\contacts.xml
@@ -319,51 +302,65 @@ public class UIMain extends Composite {
 	
 	private void buttonLoginWidgetSelected(SelectionEvent evt)
 	{
-		final Shell dialog = new Shell(this.getShell(), SWT.APPLICATION_MODAL
-				| SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX);
-		dialog.setText("Browser");
-		dialog.setSize(600, 400);
-		dialog.setLayout(new FillLayout());
-		
-		UIBrowser browser = new UIBrowser(dialog, SWT.NONE);
-		
-		// Not using AutoClose feature because of an error in Mac
-		// __NSAutoreleaseNoPool(): Object 0x100677900 of class NSEvent autoreleased with no pool in place - just leaking
-		//ArrayList<String> autoCloseURLs = new ArrayList<String>();
-		//autoCloseURLs.add("http://www.facebook.com/connect/login_success.html");
-		//autoCloseURLs.add("http://www.facebook.com/connect/login_failure.html");
-		//browser.setAutoCloseURLs(autoCloseURLs);
-		browser.OpenURL("http://www.facebook.com/login.php?api_key=51131cfef6080b4e5e0e48fc1ba50580&connect_display=popup&v=1.0&next=http://www.facebook.com/connect/login_success.html&cancel_url=http://www.facebook.com/connect/login_failure.html&fbconnect=true&return_session=true&session_key_only=true");
-		
-		dialog.open();
-		// Wait until the browser is closed
-		while(!dialog.isDisposed())
+		// Check if we currently have an access token.
+		if (Configuration.FACEBOOK_ACCESS_TOKEN == null)
 		{
-			if (!this.getShell().getDisplay().readAndDispatch())
-				this.getShell().getDisplay().sleep();
-		}
-		String currAddress = browser.getCurrentAddress();
-		if (facebookFriendFetcher.ParseUrl(currAddress))
-		{
-			getFacebookPicasaMap().clear();
-			ArrayList<PicasaContact> facebookFriends = facebookFriendFetcher.GetFriends();
-			Collections.sort(facebookFriends, new Comparator<PicasaContact>() {
-				  public int compare(PicasaContact c1, PicasaContact c2) {
-		               return c1.getName().compareToIgnoreCase(c2.getName());
-		            }
-			});
-			setFacebookFriends(facebookFriends);
+			// Display a browser and get the user authorization
 			
-			for (PicasaContact picasaContact : facebookFriends) {
-//				System.out.println(picasaContact.getName());
-				listFacebookContacts.add(picasaContact.getName());
+			final Shell dialog = new Shell(this.getShell(), SWT.APPLICATION_MODAL
+					| SWT.DIALOG_TRIM | SWT.RESIZE | SWT.MAX);
+			dialog.setText("Browser");
+			dialog.setSize(600, 400);
+			dialog.setLayout(new FillLayout());
+			
+			UIBrowser browser = new UIBrowser(dialog, SWT.NONE);
+			
+			// Not using AutoClose feature because of an error in Mac
+			// __NSAutoreleaseNoPool(): Object 0x100677900 of class NSEvent autoreleased with no pool in place - just leaking
+			//ArrayList<String> autoCloseURLs = new ArrayList<String>();
+			//autoCloseURLs.add("http://www.facebook.com/connect/login_success.html");
+			//autoCloseURLs.add("http://www.facebook.com/connect/login_failure.html");
+			//browser.setAutoCloseURLs(autoCloseURLs);
+			browser.OpenURL("https://www.facebook.com/dialog/oauth?" + 
+					"client_id=" + Configuration.FACEBOOK_APP_ID + 
+					"&redirect_uri=" + Configuration.FACEBOOK_REDIRECT_URI + 
+					"&response_type=token");
+			
+			dialog.open();
+			// Wait until the browser is closed
+			while(!dialog.isDisposed())
+			{
+				if (!this.getShell().getDisplay().readAndDispatch())
+					this.getShell().getDisplay().sleep();
+			}
+			
+			boolean success = Configuration.setAccessTokenFromRedirectUri(browser.getCurrentAddress());
+			if (!success)
+			{
+				// TODO: Some sort of user message for else case
+				return;
 			}
 		}
+		
+		java.util.List<PicasaContact> facebookFriends = facebookFriendFetcher.GetFriends();
+		Collections.sort(facebookFriends, new Comparator<PicasaContact>() 
+				{
+					public int compare(PicasaContact c1, PicasaContact c2) 
+					{
+						return c1.getName().compareToIgnoreCase(c2.getName());
+					}
+				});
+		setFacebookFriends(facebookFriends);
+		
+		for (PicasaContact picasaContact : facebookFriends) 
+		{
+			listFacebookContacts.add(picasaContact.getName());
+		}
 		MatchContacts();
-//		System.out.println("Address:" + currAddress);
 	}
 	
-	private void listFacebookContactsWidgetSelected(SelectionEvent evt) {
+	private void listFacebookContactsWidgetSelected(SelectionEvent evt) 
+	{
 		int selectionIndex = listFacebookContacts.getSelectionIndex();
 		PicasaContact activeContact = getFacebookFriends().get(selectionIndex);
 		textContactName.setText(activeContact.getName());
@@ -379,7 +376,8 @@ public class UIMain extends Composite {
 		}
 	}
 	
-	private void buttonGetPicasaContactsWidgetSelected(SelectionEvent evt) {
+	private void buttonGetPicasaContactsWidgetSelected(SelectionEvent evt) 
+	{
 		if (textContactsXmlPath != null && textContactsXmlPath.getText() != null &&
 				textContactsXmlPath.getText() != "")
 		{
@@ -402,7 +400,9 @@ public class UIMain extends Composite {
 				mb.setText("Facebook Contacts for Picasa");
 				mb.setMessage("Existing Picasa contacts are read successfully.");
 				mb.open();
-			} catch (Exception e) {
+			} 
+			catch (Exception e) 
+			{
 				MessageBox mb = new MessageBox(this.getShell(), SWT.OK);
 				mb.setText("Facebook Contacts for Picasa");
 				mb.setMessage("Contacts.xml could not be read.");
@@ -413,8 +413,8 @@ public class UIMain extends Composite {
 	
 	private void MatchContacts()
 	{
-		ArrayList<PicasaContact> facebookFriends = getFacebookFriends();
-		ArrayList<PicasaContact> picasaContacts = getPicasaContacts();
+		java.util.List<PicasaContact> facebookFriends = getFacebookFriends();
+		java.util.List<PicasaContact> picasaContacts = getPicasaContacts();
 		Hashtable<Integer, Integer> facebookPicasaMap = getFacebookPicasaMap();
 		if (facebookFriends != null && !facebookFriends.isEmpty() &&
 				picasaContacts != null && !picasaContacts.isEmpty())
@@ -452,6 +452,7 @@ public class UIMain extends Composite {
 	    // Set shell bounds,
 		dialog.setLocation(nLeft, nTop);
 
+		@SuppressWarnings("unused")
 		final AboutBox aboutBox = new AboutBox(dialog, SWT.NONE);
 
 		dialog.open();

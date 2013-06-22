@@ -5,9 +5,7 @@
 	<classpathentry kind="lib" path="lib/activation-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.2.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/facebook-java-api-3.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/facebook-java-api-annotation-processor-3.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/facebook-java-api-schema-3.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/facebook4j-core-1.1.9.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-api-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/jaxb-impl-2.1.9.jar"/>
 	<classpathentry kind="lib" path="lib/json-20080701.jar"/>

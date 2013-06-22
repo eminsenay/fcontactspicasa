@@ -16,7 +16,8 @@ public class Main
 	    final Shell shell = new Shell(display);
 	    
 	    shell.setText("Facebook Contacts for Picasa");
-	    final UIMain composite = new UIMain(shell, SWT.NONE);
+	    @SuppressWarnings("unused")
+		final UIMain composite = new UIMain(shell, SWT.NONE);
 	    shell.setLayout(new FillLayout());
 	    shell.pack();
 	    shell.open();

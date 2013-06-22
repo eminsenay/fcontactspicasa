@@ -2,6 +2,7 @@ package com.eminsenay.FacebookContactsForPicasa.BusinessLogic;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 public class Application 
 {
@@ -14,18 +15,18 @@ public class Application
 	 * Existing Picasa contacts are kept.
 	 * @throws Exception 
 	 * */
-	public void SaveContacts(ArrayList<PicasaContact> facebookFriends, 
-			ArrayList<PicasaContact> picasaContacts, Hashtable<Integer, Integer> facebookPicasaMap,
+	public void SaveContacts(List<PicasaContact> facebookFriends, 
+			List<PicasaContact> picasaContacts, Hashtable<Integer, Integer> facebookPicasaMap,
 			String outputPath) throws Exception
 	{
-		ArrayList<PicasaContact> mergedFriends = MergeFriends(facebookFriends, picasaContacts, 
+		List<PicasaContact> mergedFriends = MergeFriends(facebookFriends, picasaContacts, 
 				facebookPicasaMap);
 		PicasaXmlWriter writer = new PicasaXmlWriter();
 		writer.CreatePicasaUserXml(mergedFriends, outputPath);
 	}
 
-	private ArrayList<PicasaContact> MergeFriends(ArrayList<PicasaContact> facebookFriends,
-			ArrayList<PicasaContact> picasaContacts,
+	private List<PicasaContact> MergeFriends(List<PicasaContact> facebookFriends,
+			List<PicasaContact> picasaContacts,
 			Hashtable<Integer, Integer> facebookPicasaMap)
 	{
 		if (facebookFriends == null || facebookFriends.size() == 0)
